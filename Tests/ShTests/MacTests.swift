@@ -44,7 +44,7 @@ final class MacTests: XCTestCase {
     let availabilityError: String?
     let dataPath: String
     let dataPathSize: Int
-    let deviceTypeIdentifier: String
+    let deviceTypeIdentifier: String?
     let isAvailable: Bool
     let lastBootedAt: Date?
     let logPath: String
