@@ -4,7 +4,6 @@
 // For quiet versions of these functions, see `shq.swift`
 
 import Foundation
-import Rainbow
 
 /// Run a shell command. Useful for obtaining small bits of output
 /// from a shell program
@@ -96,11 +95,11 @@ public func sh(_ sink: Sink,
     try shq(sink, cmd, environment: environment, workingDirectory: workingDirectory)
     
   case .split(let out, let err):
-    announce("Running `\(cmd)`, output to `\(out.blue)`, error to `\(err.blue)`")
+    announce("Running `\(cmd)`, output to `\(out)`, error to `\(err)`")
     try shq(sink, cmd, environment: environment, workingDirectory: workingDirectory)
     
   case .file(let path):
-    announce("Running `\(cmd)`, logging to `\(path.blue)`")
+    announce("Running `\(cmd)`, logging to `\(path)`")
     do {
       try shq(sink, cmd, environment: environment, workingDirectory: workingDirectory)
     } catch {
@@ -136,7 +135,7 @@ public func sh(_ sink: Sink,
   case .terminal:
     await announce("Running `\(cmd)`")
   case .file(let path):
-    await announce("Running `\(cmd)`, logging to `\(path.blue)`")
+    await announce("Running `\(cmd)`, logging to `\(path)`")
     do {
       try await shq(sink, cmd, environment: environment, workingDirectory: workingDirectory)
     } catch {
@@ -165,7 +164,7 @@ public func sh(_ sink: Sink,
       }
     }
   case .split(let out, let err):
-    await announce("Running `\(cmd)`, output to `\(out.blue)`, error to `\(err.blue)`")
+    await announce("Running `\(cmd)`, output to `\(out)`, error to `\(err)`")
   case .null:
     await announce("Running `\(cmd)`, discarding output")
   }
@@ -174,14 +173,14 @@ public func sh(_ sink: Sink,
 }
 
 private func announce(_ text: String) {
-  ("[Sh] ".blue + text + "\n")
+  ("[Sh] " + text + "\n")
     .data(using: .utf8)
     .map(FileHandle.standardError.write)
 }
 
 private func announce(_ text: String) async {
   await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
-    ("[Sh] ".blue + text + "\n")
+    ("[Sh] " + text + "\n")
       .data(using: .utf8)
       .map(FileHandle.standardError.write)
     continuation.resume()

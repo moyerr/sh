@@ -10,11 +10,8 @@ let package = Package(
   products: [
     .library(name: "Sh", targets: ["Sh"]),
   ],
-  dependencies: [
-    .package(url: "https://github.com/onevcat/Rainbow", from: "4.0.0"),
-  ],
   targets: [
-    .target(name: "Sh", dependencies: ["Rainbow"]),
+    .target(name: "Sh"),
     .testTarget(name: "ShTests", dependencies: ["Sh"]),
   ])
 
